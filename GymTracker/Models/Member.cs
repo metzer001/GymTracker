@@ -24,7 +24,8 @@ namespace GymTracker.Models
         [ForeignKey("MembershipType")]
         public long MembershipTypeId { get; set; }
 
-        //
+        
+        //public virtual Membershiptype MembershipType { get; set; }
     }
 
 

@@ -23,5 +23,5 @@ namespace GymTracker.Models
 }
 
 
-   // public enum MembershipCost { Monthly = 1, Annually, PAYG }
+    public enum Membershiptype { Monthly = 1, Annually, PAYG }
 }
