@@ -16,10 +16,11 @@ namespace GymTracker.Models
 
         public double Cost { get; set; }
 
+    
 
 
 
-    }
+}
 
 
    // public enum MembershipCost { Monthly = 1, Annually, PAYG }

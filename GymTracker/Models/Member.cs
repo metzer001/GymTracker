@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,9 +16,18 @@ namespace GymTracker.Models
 
         public string LastName { get; set; }
 
+
+
         public DateTime DateOfBirth { get; set; }
 
-        public int MembershipTypeId { get; set; }
+        // foreign key for MembershipType 
+        [ForeignKey("MembershipType")]
+        public long MembershipTypeId { get; set; }
 
+        //
     }
+
+
+
 }
+
