@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GymTracker.Data;
 using GymTracker.Models;
+using GymTracker.ViewModel;
 
 namespace GymTracker.Controllers
 {
@@ -22,7 +23,42 @@ namespace GymTracker.Controllers
         // GET: Members
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Members.ToListAsync());
+
+            List<MemberViewModel> memberViewModel = new List<MemberViewModel>(); //declared my VIewModel instance
+
+            var listData = await (from member in _context.Members
+                                  join membershiptypes in _context.MembershipTypes on member.MembershipTypeId equals membershiptypes.MembershipTypeId
+                                  select new
+                                  {
+                                      member.Id,
+                                      member.FirstName,
+                                      member.LastName,
+                                      member.DateOfBirth,
+                                      membershiptypes.PaymentType
+                                  }
+                                  ).ToListAsync();
+
+            listData.ForEach(x =>
+            {
+                MemberViewModel Obj = new MemberViewModel();
+                Obj.MemberID = x.Id;
+                Obj.FirstName = x.FirstName;
+                Obj.LastName = x.LastName;
+                Obj.DateOfBirth = x.DateOfBirth;
+                Obj.PaymentType = x.PaymentType;
+                memberViewModel.Add(Obj);
+
+
+            }
+
+
+            );
+
+            //link the viewModel instance to the context class somehow..
+
+
+            return View(memberViewModel);
+           // return View(await _context.Members.ToListAsync());
         }
 
         // GET: Members/Details/5

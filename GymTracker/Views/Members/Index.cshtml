@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Member>
+﻿
+@model IEnumerable<GymTracker.ViewModel.MemberViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -22,7 +23,7 @@
                 @Html.DisplayNameFor(model => model.DateOfBirth)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MembershipTypeId)
+                @Html.DisplayNameFor(model => model.PaymentType)
             </th>
             <th></th>
         </tr>
@@ -41,12 +42,12 @@
                     @Html.DisplayFor(modelItem => item.DateOfBirth)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.MembershipType)
+                    @Html.DisplayFor(modelItem => item.PaymentType)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.MemberID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.MemberID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.MemberID">Delete</a>
                 </td>
             </tr>
         }
