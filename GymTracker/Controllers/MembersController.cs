@@ -69,14 +69,41 @@ namespace GymTracker.Controllers
                 return NotFound();
             }
 
-            var member = await _context.Members
-                .SingleOrDefaultAsync(m => m.Id == id);
-            if (member == null)
+            List<MemberViewModel> memberViewModel = new List<MemberViewModel>(); //declared my VIewModel instance
+
+            var listData = await (from member in _context.Members
+                                  where (member.Id == id)
+                                  join membershiptypes in _context.MembershipTypes on member.MembershipTypeId equals membershiptypes.MembershipTypeId
+                                  select new
+                                  {
+                                      member.Id,
+                                      member.FirstName,
+                                      member.LastName,
+                                      member.DateOfBirth,
+                                      membershiptypes.PaymentType
+                                  }
+                                  ).ToListAsync();
+
+            listData.ForEach(x =>
             {
-                return NotFound();
+                MemberViewModel Obj = new MemberViewModel();
+                Obj.MemberID = x.Id;
+                Obj.FirstName = x.FirstName;
+                Obj.LastName = x.LastName;
+                Obj.DateOfBirth = x.DateOfBirth;
+                Obj.PaymentType = x.PaymentType;
+                memberViewModel.Add(Obj);
+
+
             }
 
-            return View(member);
+
+            );
+
+            //link the viewModel instance to the context class somehow..
+
+
+            return View(memberViewModel);
         }
 
         // GET: Members/Create
