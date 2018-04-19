@@ -117,11 +117,25 @@ namespace GymTracker.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,DateOfBirth,MembershipTypeId")] Member member)
+        public async Task<IActionResult> Create(MemberViewModel member)//[Bind("Id,FirstName,LastName,DateOfBirth,PaymentType")] 
         {
             if (ModelState.IsValid)
             {
-                _context.Add(member);
+                var membershipTypeId = 1;
+
+                if (_context.MembershipTypes.Any(x => x.PaymentType == member.PaymentType))
+                {
+                    membershipTypeId = _context.MembershipTypes.First(x => x.PaymentType == member.PaymentType).MembershipTypeId;
+                }
+                var memberEntity = new Member
+                {
+                    DateOfBirth = member.DateOfBirth,
+                    FirstName = member.FirstName,
+                    Id = member.MemberID,
+                    LastName = member.LastName,
+                    MembershipTypeId = membershipTypeId
+                };
+                _context.Members.Add(memberEntity);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -160,7 +174,7 @@ namespace GymTracker.Controllers
             {
                 try
                 {
-                    _context.Update(member);
+                    _context.Members.Update(member);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)

@@ -18,6 +18,8 @@ namespace GymTracker.ViewModel
 
         public string PaymentType { get; set; }
 
-        
+
+
+
     }
 }
