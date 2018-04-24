@@ -123,9 +123,13 @@ namespace GymTracker.Controllers
             {
                 var membershipTypeId = 1;
 
-                if (_context.MembershipTypes.Any(x => x.PaymentType == member.PaymentType))
+                
+              
+
+                if (_context.MembershipTypes.Any(x => x.MembershipTypeId.ToString() == member.PaymentType))
                 {
-                    membershipTypeId = _context.MembershipTypes.First(x => x.PaymentType == member.PaymentType).MembershipTypeId;
+                    //membershipTypeId = _context.MembershipTypes.First(x => x.PaymentType == member.PaymentType).MembershipTypeId;
+                    membershipTypeId = _context.MembershipTypes.First(x => x.MembershipTypeId.ToString() == member.PaymentType).MembershipTypeId;
                 }
                 var memberEntity = new Member
                 {

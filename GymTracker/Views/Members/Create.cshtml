@@ -35,7 +35,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="PaymentType" class="control-label"></label>
-                <input asp-for="PaymentType" class="form-control" />
+                @Html.DropDownListFor(model => model.PaymentType, Html.GetEnumSelectList(typeof(Membershiptype)))
+                
                 <span asp-validation-for="PaymentType" class="text-danger"></span>
             </div>
             <div class="form-group">
