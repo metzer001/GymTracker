@@ -32,8 +32,7 @@
                 <label asp-for="DateOfBirth" class="control-label"></label>
                 @Html.EditorFor(model => model.DateOfBirth,
               new { htmlAttributes = new { @class = "form-control date-picker" } })
-                @Html.TextBox("datetimepicker")
-                @Html.TextBoxFor(model => model.DateOfBirth, "{0:dd/MMM/yyyy}", new { @class = "form-control datepicker" })
+
 
 
             </div>

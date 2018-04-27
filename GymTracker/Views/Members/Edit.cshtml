@@ -29,7 +29,7 @@
                 <span asp-validation-for="DateOfBirth" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="MembershipTypeId" class="control-label"></label>
+                @Html.DisplayNameFor(model => model.MembershipTypeId)
                 @Html.DropDownListFor(model => model.MembershipTypeId, Html.GetEnumSelectList(typeof(Membershiptype)))
                 <span asp-validation-for="MembershipTypeId" class="text-danger"></span>
             </div>

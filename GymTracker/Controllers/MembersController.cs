@@ -165,6 +165,9 @@ namespace GymTracker.Controllers
         // POST: Members/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //@Html.TextBox("datetimepicker")
+       // @Html.TextBoxFor(model => model.DateOfBirth, "{0:dd/MMM/yyyy}", new { @class = "form-control datepicker" })
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Member member)
