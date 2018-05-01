@@ -19,7 +19,7 @@ namespace GymTracker.Models
         public string LastName { get; set; }
 
 
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime DateOfBirth { get; set; }
 
         // foreign key for MembershipType 

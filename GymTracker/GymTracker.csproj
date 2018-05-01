@@ -186,6 +186,7 @@
     <Content Include="bower_components\jquery-ui\themes\humanity\jquery-ui.css" />
     <Content Include="bower_components\jquery-ui\themes\humanity\jquery-ui.min.css" />
     <Content Include="bower_components\jquery-ui\themes\humanity\theme.css" />
+    <Content Include="bower_components\jquery-ui\themes\jquery-ui.css" />
     <Content Include="bower_components\jquery-ui\themes\le-frog\images\ui-bg_diagonals-small_0_aaaaaa_40x40.png" />
     <Content Include="bower_components\jquery-ui\themes\le-frog\images\ui-bg_diagonals-thick_15_444444_40x40.png" />
     <Content Include="bower_components\jquery-ui\themes\le-frog\images\ui-bg_diagonals-thick_95_ffdc2e_40x40.png" />
