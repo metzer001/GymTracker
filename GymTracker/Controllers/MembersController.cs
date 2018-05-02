@@ -34,6 +34,7 @@ namespace GymTracker.Controllers
                                       member.FirstName,
                                       member.LastName,
                                       member.DateOfBirth,
+                                      member.TelephoneNumber,
                                       membershiptypes.PaymentType
                                   }
                                   ).ToListAsync();
@@ -45,6 +46,7 @@ namespace GymTracker.Controllers
                 Obj.FirstName = x.FirstName;
                 Obj.LastName = x.LastName;
                 Obj.DateOfBirth = x.DateOfBirth;
+                Obj.TelephoneNumber = x.TelephoneNumber;
                 Obj.PaymentType = x.PaymentType;
                 memberViewModel.Add(Obj);
 
@@ -80,6 +82,7 @@ namespace GymTracker.Controllers
                                       member.FirstName,
                                       member.LastName,
                                       member.DateOfBirth,
+                                      member.TelephoneNumber,
                                       membershiptypes.PaymentType
                                   }
                                   ).ToListAsync();
@@ -91,6 +94,7 @@ namespace GymTracker.Controllers
                 Obj.FirstName = x.FirstName;
                 Obj.LastName = x.LastName;
                 Obj.DateOfBirth = x.DateOfBirth;
+                Obj.TelephoneNumber = x.TelephoneNumber;
                 Obj.PaymentType = x.PaymentType;
                 memberViewModel.Add(Obj);
 
@@ -137,6 +141,7 @@ namespace GymTracker.Controllers
                     FirstName = member.FirstName,
                     Id = member.MemberID,
                     LastName = member.LastName,
+                    TelephoneNumber = member.TelephoneNumber,
                     MembershipTypeId = membershipTypeId
                 };
                 _context.Members.Add(memberEntity);

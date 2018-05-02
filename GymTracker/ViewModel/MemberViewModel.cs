@@ -16,6 +16,8 @@ namespace GymTracker.ViewModel
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime DateOfBirth { get; set; }
 
+        public string TelephoneNumber { get; set; }
+
         public string PaymentType { get; set; }
 
 

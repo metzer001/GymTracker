@@ -22,6 +22,8 @@ namespace GymTracker.Models
         //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime DateOfBirth { get; set; }
 
+        public string TelephoneNumber { get; set; }
+
         // foreign key for MembershipType 
         [ForeignKey("MembershipType")]
         [DisplayName("Payment Type")]
