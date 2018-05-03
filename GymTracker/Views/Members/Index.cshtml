@@ -4,6 +4,7 @@
 @{
     ViewData["Title"] = "Index";
 }
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
 <h2>Index</h2>
 
@@ -60,3 +61,17 @@
         }
     </tbody>
 </table>
+
+<script>
+    $(document).ready(function () {
+        $('h2').hover(function () {
+
+            $(this).css("color", "red");
+
+        });
+
+
+
+    });
+
+</script>
