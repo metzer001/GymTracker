@@ -14,16 +14,17 @@ namespace GymTracker.Models
 
         public int Id { get; set; }
 
+        [Required]
         public string FirstName { get; set; }
-
+        [Required]
         public string LastName { get; set; }
 
-
+        [Required]
         //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime DateOfBirth { get; set; }
-
+        [Required]
         public string TelephoneNumber { get; set; }
-
+        [Required]
         // foreign key for MembershipType 
         [ForeignKey("MembershipType")]
         [DisplayName("Payment Type")]

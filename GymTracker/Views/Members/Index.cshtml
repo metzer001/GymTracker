@@ -71,6 +71,15 @@
         });
 
 
+        $("tr").not(':first').hover(
+            function () {
+                $(this).css("background", "grey");
+            },
+            function () {
+                $(this).css("background", "");
+            }
+        );
+
 
     });
 
