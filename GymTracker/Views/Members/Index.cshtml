@@ -6,6 +6,8 @@
 }
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
+
+
 <h2>Index</h2>
 
 <p>
@@ -15,13 +17,14 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.FirstName)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.FirstName)</a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.LastName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DateOfBirth)
+             
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">@Html.DisplayNameFor(model => model.DateOfBirth)</a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.TelephoneNumber)
@@ -35,29 +38,29 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateOfBirth)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TelephoneNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PaymentType)
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfBirth)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TelephoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PaymentType)
 
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.MemberID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.MemberID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.MemberID">Delete</a>
-            </td>
-        </tr>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.MemberID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.MemberID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.MemberID">Delete</a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
@@ -84,3 +87,8 @@
     });
 
 </script>
+
+
+
+
+

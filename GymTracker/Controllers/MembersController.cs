@@ -21,8 +21,11 @@ namespace GymTracker.Controllers
         }
 
         // GET: Members
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder)
         {
+
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "firstname_desc" : "";
+            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
 
             List<MemberViewModel> memberViewModel = new List<MemberViewModel>(); //declared my VIewModel instance
 
@@ -56,10 +59,29 @@ namespace GymTracker.Controllers
 
             );
 
-            //link the viewModel instance to the context class somehow..
+            switch (sortOrder)
+            {
+                case "firstname_desc":
+                    memberViewModel = memberViewModel.OrderByDescending(m => m.FirstName).ToList();
+                    break;
+
+                case "Date":
+                    memberViewModel = memberViewModel.OrderBy(m => m.DateOfBirth).ToList();
+                    break;
+
+                case "date_desc":
+                    memberViewModel = memberViewModel.OrderByDescending(m => m.DateOfBirth).ToList();
+                    break;
+                   
+
+                default:
+                    memberViewModel = memberViewModel.OrderBy(m => m.FirstName).ToList();
+                    break;
+
+            }
 
 
-            return View(memberViewModel);
+            return View(memberViewModel.ToList());
            // return View(await _context.Members.ToListAsync());
         }
 
