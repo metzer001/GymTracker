@@ -11,16 +11,18 @@ namespace GymTracker.ViewModel
         [Required]
         public int MemberID { get; set; }
         [Required]
+        [StringLength(50,  ErrorMessage = "Last name cannot be longer than 50 characters.")]
         public string FirstName { get; set; }
 
         [Required]
+        [StringLength(50, ErrorMessage = "Last name cannot be longer than 50 characters.")]
         public string LastName { get; set; }
 
        
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
-        [Required]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+
         public DateTime DateOfBirth { get; set; }
-        [Required]
+        
         public string TelephoneNumber { get; set; }
 
         
