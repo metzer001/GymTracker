@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GymTracker.Data;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,6 +29,16 @@ namespace GymTracker
 
             services.AddDbContext<GymContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddIdentity<IdentityUser, IdentityRole>();
+            services.AddAuthentication(
+                    v => {
+                        v.DefaultAuthenticateScheme = GoogleDefaults.AuthenticationScheme;
+                        v.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+                    }).AddGoogle(googleOptions =>
+                    {
+                        googleOptions.ClientId = "CLIENT ID";
+                        googleOptions.ClientSecret = "CLIENT SECRET";
+                    });
 
             services.AddMvc();
         }
@@ -46,7 +58,7 @@ namespace GymTracker
 
             app.UseStaticFiles();
 
-            app.UseMvc(routes =>
+            app.UseAuthentication().UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",

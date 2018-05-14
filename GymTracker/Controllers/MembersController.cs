@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GymTracker.Data;
 using GymTracker.Models;
@@ -131,6 +130,63 @@ namespace GymTracker.Controllers
 
             return View(memberViewModel);
         }
+
+
+        public async Task<IActionResult> ShowPayMonthly()
+        {
+
+
+            List<MemberViewModel> memberViewModel = new List<MemberViewModel>(); //declared my VIewModel instance
+
+            var listData = await (from member in _context.Members
+                                  where member.MembershipTypeId == 1   //get only the Pay Monthly Members
+                                  join membershiptypes in _context.MembershipTypes on member.MembershipTypeId equals membershiptypes.MembershipTypeId
+                                  select new
+                                  {
+                                      member.Id,
+                                      member.FirstName,
+                                      member.LastName,
+                                      member.DateOfBirth,
+                                      member.TelephoneNumber,
+                                      membershiptypes.PaymentType
+                                  }
+                                  ).ToListAsync();
+
+            listData.ForEach(x =>
+            {
+                MemberViewModel Obj = new MemberViewModel();
+                Obj.MemberID = x.Id;
+                Obj.FirstName = x.FirstName;
+                Obj.LastName = x.LastName;
+                Obj.DateOfBirth = x.DateOfBirth;
+                Obj.TelephoneNumber = x.TelephoneNumber;
+                Obj.PaymentType = x.PaymentType;
+                memberViewModel.Add(Obj);
+
+
+            }
+
+
+            );
+
+            //link the viewModel instance to the context class somehow..
+
+
+            return View(memberViewModel);
+        }
+
+
+       
+
+
+
+
+
+
+
+
+
+
 
         // GET: Members/Create
         public IActionResult Create()
