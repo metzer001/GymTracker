@@ -8,6 +8,7 @@
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script>
     $(document).ready(function () {
         $("#datepicker").datepicker({
@@ -17,9 +18,28 @@
             dateFormat: "dd/mm/yy"
         });
     });
+
+
+
+
+    $(function () {
+        $(".resizable").resizable();
+    });
+
 </script>
 
+<style>
+    #resizable {
+        width: 250px;
+        height: 250px;
+        padding: 0.5em;
+    }
 
+        #resizable h3 {
+            text-align: center;
+            margin: 0;
+        }
+</style>
 
 
 
@@ -31,9 +51,9 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            <div class="form-group resizable">
                 <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
+                <input asp-for="FirstName" class="form-control ui-widget-header" />
                 <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -43,7 +63,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="DateOfBirth" class="control-label"></label>
-                
+
 
                 <p><input type="text" id="datepicker"></p>
             </div>

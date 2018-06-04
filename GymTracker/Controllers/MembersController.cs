@@ -176,7 +176,30 @@ namespace GymTracker.Controllers
         }
 
 
-       
+        [HttpGet]
+        public async Task<IActionResult> BookClass(int memberid, Member member)
+        {
+
+            var getClasses = await (from Classes in _context.Classes
+                                    where Classes.NumberOfBookings < Classes.ClassSize
+                                    select);
+
+
+
+            if (memberid == null)
+            {
+                return NotFound();
+            }
+
+            var member = await _context.Members.SingleOrDefaultAsync(m => m.Id == memberid);
+            if (member == null)
+            {
+                return NotFound();
+            }
+
+
+            return View(member);
+        }
 
 
 

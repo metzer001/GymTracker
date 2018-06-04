@@ -11,37 +11,20 @@ using System;
 namespace GymTracker.Migrations
 {
     [DbContext(typeof(GymContext))]
-    partial class GymContextModelSnapshot : ModelSnapshot
+    [Migration("20180524080519_addednewtable")]
+    partial class addednewtable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.3-rtm-10026")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("GymTracker.Models.Classes", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("ClassName");
-
-                    b.Property<int>("ClassSize");
-
-                    b.Property<int>("NumberOfBookings");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Classes");
-                });
-
             modelBuilder.Entity("GymTracker.Models.Member", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<int?>("ClassesId");
 
                     b.Property<DateTime>("DateOfBirth");
 
@@ -56,8 +39,6 @@ namespace GymTracker.Migrations
                     b.Property<string>("TelephoneNumber");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ClassesId");
 
                     b.ToTable("Members");
                 });
@@ -74,13 +55,6 @@ namespace GymTracker.Migrations
                     b.HasKey("MembershipTypeId");
 
                     b.ToTable("MembershipTypes");
-                });
-
-            modelBuilder.Entity("GymTracker.Models.Member", b =>
-                {
-                    b.HasOne("GymTracker.Models.Classes")
-                        .WithMany("MemberClassBookings")
-                        .HasForeignKey("ClassesId");
                 });
 #pragma warning restore 612, 618
         }

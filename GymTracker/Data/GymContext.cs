@@ -21,6 +21,9 @@ namespace GymTracker.Data
 
         public DbSet<MembershipType> MembershipTypes { get; set; }
 
+        public DbSet<Classes> Classes { get; set; }
+
+
 
     }
 }
