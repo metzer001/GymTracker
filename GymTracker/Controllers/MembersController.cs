@@ -19,6 +19,8 @@ namespace GymTracker.Controllers
             _context = context;
         }
 
+        
+
         // GET: Members
         public async Task<IActionResult> Index(string sortOrder)
         {
@@ -40,6 +42,8 @@ namespace GymTracker.Controllers
                                       membershiptypes.PaymentType
                                   }
                                   ).ToListAsync();
+
+          
 
             listData.ForEach(x =>
             {
@@ -177,25 +181,19 @@ namespace GymTracker.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> BookClass(int memberid, Member member)
+        public async Task<IActionResult> BookClass(int memberid)
         {
 
-            var getClasses = await (from Classes in _context.Classes
-                                    where Classes.NumberOfBookings < Classes.ClassSize
-                                    select);
+            var member =  _context.Classes.Find(from cn in _context.Classes
+                                                     where cn.NumberOfBookings < cn.ClassSize
+                                                     select cn);
+
+           
 
 
 
-            if (memberid == null)
-            {
-                return NotFound();
-            }
+  
 
-            var member = await _context.Members.SingleOrDefaultAsync(m => m.Id == memberid);
-            if (member == null)
-            {
-                return NotFound();
-            }
 
 
             return View(member);
