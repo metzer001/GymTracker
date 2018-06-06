@@ -181,22 +181,49 @@ namespace GymTracker.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> BookClass(int memberid)
+        public async Task<IActionResult> BookClass()
         {
-
-            var member =  _context.Classes.Find(from cn in _context.Classes
-                                                     where cn.NumberOfBookings < cn.ClassSize
-                                                     select cn);
-
            
 
+            List<MemberClassViewModel> memberClassViewModel = new List<MemberClassViewModel>();
+
+            //var member =  _context.Classes.Find(from cn in _context.Classes
+            //                                         where cn.NumberOfBookings < cn.ClassSize
+            //                                         select cn);
 
 
-  
+            var listData = await (from Classes in _context.Classes
+                                  select new
+                                  {
+                                      Classes.Id,
+                                      Classes.ClassName,
+                                      Classes.MemberClassBookings
+                                  }
+                                  ).ToListAsync();
+
+            listData.ForEach(x =>
+            {
+                MemberClassViewModel Obj = new MemberClassViewModel();
+                Obj.MemberID = x.Id;
+                Obj.ClassID = x.Id;
+                Obj.ClassName = x.ClassName;
+                Obj.MemberClassBookings = x.MemberClassBookings;
+
+                memberClassViewModel.Add(Obj);
+
+
+            }
+
+
+);
 
 
 
-            return View(member);
+
+
+
+
+            return View(memberClassViewModel);
         }
 
 
