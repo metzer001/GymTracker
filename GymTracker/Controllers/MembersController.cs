@@ -89,7 +89,7 @@ namespace GymTracker.Controllers
         }
 
         // GET: Members/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -181,49 +181,63 @@ namespace GymTracker.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> BookClass()
+        public async Task<IActionResult> BookClass(int id)
         {
-           
-
+          
             List<MemberClassViewModel> memberClassViewModel = new List<MemberClassViewModel>();
-
-            //var member =  _context.Classes.Find(from cn in _context.Classes
-            //                                         where cn.NumberOfBookings < cn.ClassSize
-            //                                         select cn);
-
-
+            var classlist = _context.Classes.OrderBy(c=>c.ClassName).Select(x => new { Id = x.Id, Value = x.ClassName });
             var listData = await (from Classes in _context.Classes
                                   select new
                                   {
                                       Classes.Id,
                                       Classes.ClassName,
-                                      Classes.MemberClassBookings
+                                      Classes.MemberID
                                   }
                                   ).ToListAsync();
 
             listData.ForEach(x =>
             {
                 MemberClassViewModel Obj = new MemberClassViewModel();
-                Obj.MemberID = x.Id;
+               
                 Obj.ClassID = x.Id;
-                Obj.ClassName = x.ClassName;
-                Obj.MemberClassBookings = x.MemberClassBookings;
+                Obj.MemberID = id;
 
+                Obj.ClassName = x.ClassName;
+                //Obj.ClassName = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(classlist, "Id", "Value");
                 memberClassViewModel.Add(Obj);
 
-
             }
+ );
+
+           return View(memberClassViewModel);
+        }
 
 
-);
+       
+        [HttpGet]
+        public async Task<ActionResult> BookClassConfirmed(int id)
+        {
+            //if (_context.Classes.Where(c => c.Id == memberClassViewModel.ClassID).Any())
+            //{
+
+        
+
+            //    //var classToBook =  _context.Classes.Find(memberClassViewModel.ClassID);
+
+            //    //classToBook.NumberOfBookings = classToBook.NumberOfBookings + 1;
+
+            //    //_context.SaveChanges();
+
+             
 
 
 
 
+            //}
 
 
 
-            return View(memberClassViewModel);
+            return RedirectToAction("Index");
         }
 
 
@@ -232,12 +246,8 @@ namespace GymTracker.Controllers
 
 
 
-
-
-
-
-        // GET: Members/Create
-        public IActionResult Create()
+            // GET: Members/Create
+            public IActionResult Create()
         {
             return View();
         }

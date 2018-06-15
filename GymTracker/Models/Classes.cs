@@ -17,7 +17,7 @@ namespace GymTracker.Models
 
         public int NumberOfBookings { get; set; }   
 
-        public List<Member>MemberClassBookings { get; set; }
+        public List<Member>MemberID { get; set; }
 
 
 

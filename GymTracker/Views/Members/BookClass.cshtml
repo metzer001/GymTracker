@@ -3,9 +3,29 @@
 
 
 
-@{
-    ViewData["Title"] = "BookClass";
-}
 
-<h2>BookClass</h2>
+    @{
+        ViewData["Title"] = "BookClass";
+    }
+
+<h2>Book Class</h2>
+
+
+
+
+@foreach (var gym in Model)
+{
+    <form method="post">
+
+        <div>
+
+            <a asp-action="BookClassConfirmed" asp-controller="Members" asp-route-id="@gym.ClassID">@gym.ClassName</a>
+        </div>
+
+
+    </form>
+
+
+
+}
 
