@@ -186,15 +186,22 @@ namespace GymTracker.Controllers
           
             List<MemberClassViewModel> memberClassViewModel = new List<MemberClassViewModel>();
             var classlist = _context.Classes.OrderBy(c=>c.ClassName).Select(x => new { Id = x.Id, Value = x.ClassName });
-            var listData = await (from Classes in _context.Classes
-                                  select new
+            var listData = await (_context.Classes.Select(x =>
+                                  new
                                   {
-                                      Classes.Id,
-                                      Classes.ClassName,
-                                      Classes.MemberID
+                                      x.Id,
+                                      x.ClassName,
+                                      x.MemberID
                                   }
-                                  ).ToListAsync();
-
+                                  ).ToListAsync());
+            //(from Classes in _context.Classes
+            // select new
+            // {
+            //     Classes.Id,
+            //     Classes.ClassName,
+            //     Classes.MemberID
+            // }
+            //                      ).ToListAsync();
             listData.ForEach(x =>
             {
                 MemberClassViewModel Obj = new MemberClassViewModel();
@@ -215,8 +222,24 @@ namespace GymTracker.Controllers
 
        
         [HttpGet]
-        public async Task<ActionResult> BookClassConfirmed(int id)
+        public async Task<ActionResult> BookClassConfirmed(int id, int ClassId)
         {
+            if (_context.Members.Any(x => x.Id == id))  //check if that memberID actually exists, else return 404 not found
+            {
+
+                var memberid = _context.Members.First(x => x.Id == id);
+
+
+
+            }
+
+            else
+            {
+                throw new HttpException(404, "Something has gone wrong");
+
+            }
+
+
             //if (_context.Classes.Where(c => c.Id == memberClassViewModel.ClassID).Any())
             //{
 

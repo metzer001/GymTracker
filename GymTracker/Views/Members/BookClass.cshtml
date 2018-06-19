@@ -4,9 +4,9 @@
 
 
 
-    @{
-        ViewData["Title"] = "BookClass";
-    }
+@{
+    ViewData["Title"] = "BookClass";
+}
 
 <h2>Book Class</h2>
 
@@ -17,9 +17,15 @@
 {
     <form method="post">
 
+
+
         <div>
 
-            <a asp-action="BookClassConfirmed" asp-controller="Members" asp-route-id="@gym.ClassID">@gym.ClassName</a>
+            <a asp-action="BookClassConfirmed" asp-controller="Members" asp-route-ClassId="@gym.ClassID" asp-route-id="@gym.MemberID" >@gym.ClassName</a>
+          
+
+
+
         </div>
 
 
