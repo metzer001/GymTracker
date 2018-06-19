@@ -228,8 +228,13 @@ namespace GymTracker.Controllers
             {
 
                 var memberid = _context.Members.First(x => x.Id == id);
+                var classid = _context.Classes.First(x => x.Id == ClassId);
+
+                classid.NumberOfBookings = classid.NumberOfBookings + 1;
+                //classid.MemberID.Add(memberid);
 
 
+                _context.SaveChanges();
 
             }
 
