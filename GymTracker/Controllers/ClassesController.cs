@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GymTracker.Data;
 using GymTracker.Models;
+using GymTracker.ViewModel;
 
 namespace GymTracker.Controllers
 {
@@ -33,14 +34,59 @@ namespace GymTracker.Controllers
                 return NotFound();
             }
 
-            var classes = await _context.Classes
-                .SingleOrDefaultAsync(m => m.Id == id);
-            if (classes == null)
-            {
-                return NotFound();
-            }
 
-            return View(classes);
+            List<MemberClassBookedViewModel> memberClassBookedViewModel = new  List<MemberClassBookedViewModel>(); //declared my VIewModel instance
+
+            var listData = await (from classess in _context.Classes
+                                  where (classess.Id == id)
+
+                                  select new MemberClassBookedViewModel
+                                  {
+                                      ClassId = classess.Id,
+                                      ClassName = classess.ClassName,
+                                      ClassSize = classess.ClassSize,
+                                      NumberOfBookings = classess.NumberOfBookings,
+                                      MemberIDs = new List<int>()
+                                  }
+                                  ).ToListAsync();
+
+            listData.First().MemberIDs = (from member in _context.Members
+                                          join classesbooked in _context.ClassesBooked on member.Id equals classesbooked.MemberID
+                                          where id == classesbooked.ClassID
+                                          select new { member.Id })
+                                                   .Select(x => x.Id).ToList();
+
+            listData.ForEach(x =>
+            {
+                MemberClassBookedViewModel Obj = new MemberClassBookedViewModel();
+                Obj.ClassId = x.ClassId;
+                Obj.ClassName = x.ClassName;
+                Obj.ClassSize = x.ClassSize;
+                Obj.NumberOfBookings = x.NumberOfBookings;
+                Obj.MemberIDs = x.MemberIDs;
+
+
+                memberClassBookedViewModel.Add(Obj);
+
+
+            }
+            );
+
+            return View(memberClassBookedViewModel);
+
+
+
+
+
+
+            //var classes = await _context.Classes
+            //    .SingleOrDefaultAsync(m => m.Id == id);
+            //if (classes == null)
+            //{
+            //    return NotFound();
+            //}
+
+            //return View(classes);
         }
 
         // GET: Classes/Create

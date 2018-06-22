@@ -101,6 +101,7 @@ namespace GymTracker.Controllers
             var listData = await (from member in _context.Members
                                   where (member.Id == id)
                                   join membershiptypes in _context.MembershipTypes on member.MembershipTypeId equals membershiptypes.MembershipTypeId
+                             
                                   select new
                                   {
                                       member.Id,
@@ -109,6 +110,8 @@ namespace GymTracker.Controllers
                                       member.DateOfBirth,
                                       member.TelephoneNumber,
                                       membershiptypes.PaymentType
+                      
+                                      
                                   }
                                   ).ToListAsync();
 
@@ -121,6 +124,7 @@ namespace GymTracker.Controllers
                 Obj.DateOfBirth = x.DateOfBirth;
                 Obj.TelephoneNumber = x.TelephoneNumber;
                 Obj.PaymentType = x.PaymentType;
+              
                 memberViewModel.Add(Obj);
 
 
@@ -191,17 +195,25 @@ namespace GymTracker.Controllers
                                   {
                                       x.Id,
                                       x.ClassName,
-                                      x.MemberID
+                                     
                                   }
-                                  ).ToListAsync());
-            //(from Classes in _context.Classes
+            ).ToListAsync());
+
+
+
+
+            //var listData = await
+            //(from Classes in _context.Classes join classesbooked in _context.ClassesBooked on Classes.Id equals classesbooked.ClassID
             // select new
             // {
             //     Classes.Id,
             //     Classes.ClassName,
-            //     Classes.MemberID
+            //     classesbooked.MemberID
             // }
             //                      ).ToListAsync();
+
+
+
             listData.ForEach(x =>
             {
                 MemberClassViewModel Obj = new MemberClassViewModel();
@@ -222,7 +234,7 @@ namespace GymTracker.Controllers
 
        
         [HttpGet]
-        public async Task<ActionResult> BookClassConfirmed(int id, int ClassId)
+        public async Task<ActionResult> BookClassConfirmed(int id, int ClassId)  //firstid parameter is memberID
         {
             if (_context.Members.Any(x => x.Id == id))  //check if that memberID actually exists, else return 404 not found
             {
@@ -230,10 +242,14 @@ namespace GymTracker.Controllers
                 var memberid = _context.Members.First(x => x.Id == id);
                 var classid = _context.Classes.First(x => x.Id == ClassId);
 
+               //ar classesbooked = _context.ClassesBooked;
+
                 classid.NumberOfBookings = classid.NumberOfBookings + 1;
                 //classid.MemberID.Add(memberid);
 
-
+                _context.ClassesBooked.Add(new ClassesBooked { ClassID = ClassId, MemberID = id });
+                    
+                 
                 _context.SaveChanges();
 
             }
@@ -255,10 +271,6 @@ namespace GymTracker.Controllers
             //    //classToBook.NumberOfBookings = classToBook.NumberOfBookings + 1;
 
             //    //_context.SaveChanges();
-
-             
-
-
 
 
             //}

@@ -1,4 +1,5 @@
-﻿@model GymTracker.Models.Classes
+﻿
+@model IEnumerable<GymTracker.ViewModel.MemberClassBookedViewModel>
 
 @{
     ViewData["Title"] = "Details";
@@ -6,31 +7,45 @@
 
 <h2>Details</h2>
 
-<div>
-    <h4>Classes</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ClassName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ClassName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ClassSize)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ClassSize)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NumberOfBookings)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NumberOfBookings)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+@foreach (var item in Model)
+{
+
+
+    <div>
+        <h4>Classes</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.ClassName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => item.ClassName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ClassSize)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => item.ClassSize)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.NumberOfBookings)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => item.NumberOfBookings)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.MemberIDs)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => item.MemberIDs)
+            </dd>
+        </dl>
+    </div>
+
+    <div>
+        <a asp-action="Edit" asp-route-id="@item.ClassId">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+}
+

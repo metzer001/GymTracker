@@ -30,6 +30,8 @@ namespace GymTracker.Models
         [DisplayName("Payment Type")]
         public int MembershipTypeId { get; set; }
 
+       
+
         
         //public virtual Membershiptype MembershipType { get; set; }
     }
