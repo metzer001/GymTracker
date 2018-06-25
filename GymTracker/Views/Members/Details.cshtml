@@ -4,6 +4,8 @@
     ViewData["Title"] = "Details";
 }
 
+@Html.Partial("_Message")
+
 <h2>Details</h2>
 
 @foreach (var item in Model)
@@ -39,12 +41,6 @@
             </dt>
             <dd>
                 @Html.DisplayFor(modelItem => item.PaymentType)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.ClassID)
-            </dt>
-            <dd>
-                @Html.DisplayFor(modelItem => item.ClassID)
             </dd>
 
         </dl>

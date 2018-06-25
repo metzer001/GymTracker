@@ -8,6 +8,8 @@
     ViewData["Title"] = "BookClass";
 }
 
+@Html.Partial("_Message")
+
 <h2>Book Class</h2>
 
 
@@ -21,8 +23,8 @@
 
         <div>
 
-            <a asp-action="BookClassConfirmed" asp-controller="Members" asp-route-ClassId="@gym.ClassID" asp-route-id="@gym.MemberID" >@gym.ClassName</a>
-          
+            <a asp-action="BookClassConfirmed" asp-controller="Members" asp-route-ClassId="@gym.ClassID" asp-route-id="@gym.MemberID">@gym.ClassName</a>
+
 
 
 

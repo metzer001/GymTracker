@@ -5,6 +5,8 @@
     ViewData["Title"] = "Details";
 }
 
+
+
 <h2>Details</h2>
 
 @foreach (var item in Model)
@@ -36,14 +38,24 @@
             <dt>
                 @Html.DisplayNameFor(model => model.MemberIDs)
             </dt>
-            <dd>
-                @Html.DisplayFor(model => item.MemberIDs)
-            </dd>
+
+            @foreach (var x in item.MemberIDs)
+            {
+
+                <dd>
+                    @Html.DisplayFor(model => x)
+                </dd>
+
+
+            }
+
+
+
         </dl>
     </div>
 
     <div>
-        <a asp-action="Edit" asp-route-id="@item.ClassId">Edit</a> |
+        <a asp-action="Edit" class="btn btn-primary btn-lg margin-right" asp-route-id="@item.ClassId">Edit</a> |
         <a asp-action="Index">Back to List</a>
     </div>
 

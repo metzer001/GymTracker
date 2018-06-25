@@ -227,7 +227,7 @@ namespace GymTracker.Controllers
 
             }
  );
-
+           
            return View(memberClassViewModel);
         }
 
@@ -252,6 +252,9 @@ namespace GymTracker.Controllers
                  
                 _context.SaveChanges();
 
+
+               
+
             }
 
             else
@@ -264,7 +267,7 @@ namespace GymTracker.Controllers
             //if (_context.Classes.Where(c => c.Id == memberClassViewModel.ClassID).Any())
             //{
 
-        
+
 
             //    //var classToBook =  _context.Classes.Find(memberClassViewModel.ClassID);
 
@@ -276,7 +279,7 @@ namespace GymTracker.Controllers
             //}
 
 
-
+            TempData["Message"] = "Your class was successfully booked!";
             return RedirectToAction("Index");
         }
 
@@ -322,8 +325,12 @@ namespace GymTracker.Controllers
                 };
                 _context.Members.Add(memberEntity);
                 await _context.SaveChangesAsync();
+
+                TempData["Message"] = "Member has been created!";
                 return RedirectToAction(nameof(Index));
             }
+
+            
             return View(member);
         }
 
@@ -420,6 +427,7 @@ namespace GymTracker.Controllers
             var member = await _context.Members.SingleOrDefaultAsync(m => m.Id == id);
             _context.Members.Remove(member);
             await _context.SaveChangesAsync();
+            TempData["Message"] = "Member has been successfully deleted!";
             return RedirectToAction(nameof(Index));
         }
 
