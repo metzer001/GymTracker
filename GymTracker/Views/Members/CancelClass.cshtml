@@ -1,0 +1,39 @@
+﻿
+@model IEnumerable<GymTracker.ViewModel.MemberClassViewModel>
+
+
+
+
+@{
+    ViewData["Title"] = "Cancel Class";
+}
+
+@Html.Partial("_Message")
+
+<h2>Cancel Class</h2>
+
+
+
+
+@foreach (var gym in Model)
+{
+    <form method="post">
+
+
+
+        <div>
+
+            <a asp-action="CancelClassConfirmed" asp-controller="Members" asp-route-ClassId="@gym.ClassID" asp-route-id="@gym.MemberID">@gym.ClassName</a>
+
+
+
+
+        </div>
+
+
+    </form>
+
+
+
+}
+

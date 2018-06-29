@@ -214,7 +214,8 @@ namespace GymTracker.Controllers
 
 
 
-            listData.ForEach(x =>
+            listData.ForEach
+            (x =>
             {
                 MemberClassViewModel Obj = new MemberClassViewModel();
                
@@ -226,10 +227,18 @@ namespace GymTracker.Controllers
                 memberClassViewModel.Add(Obj);
 
             }
- );
+            );
            
            return View(memberClassViewModel);
         }
+
+
+
+
+
+
+
+
 
 
        
@@ -264,23 +273,57 @@ namespace GymTracker.Controllers
             }
 
 
-            //if (_context.Classes.Where(c => c.Id == memberClassViewModel.ClassID).Any())
-            //{
-
-
-
-            //    //var classToBook =  _context.Classes.Find(memberClassViewModel.ClassID);
-
-            //    //classToBook.NumberOfBookings = classToBook.NumberOfBookings + 1;
-
-            //    //_context.SaveChanges();
-
-
-            //}
 
 
             TempData["Message"] = "Your class was successfully booked!";
-            return RedirectToAction("Index");
+            return RedirectToAction("Details",new { id = id });
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> CancelClass(int id)
+        {
+
+
+
+
+            //
+            List<MemberClassViewModel> memberClassViewModel = new List<MemberClassViewModel>(); //declared my VIewModel instance
+
+            var listData = await (from classessbooked in _context.ClassesBooked
+                                  join classes in _context.Classes on classessbooked.ClassID equals classes.Id
+                                  where (classessbooked.MemberID == id)
+
+                                  select new MemberClassViewModel
+                                  {
+                                      ClassID = classessbooked.Id,
+                                      ClassName = classes.ClassName,
+                                      MemberID = id
+                                  }
+                                  ).ToListAsync();
+
+            //listData.First().MemberIDs = (from member in _context.Members
+            //                              join classesbooked in _context.ClassesBooked on member.Id equals classesbooked.MemberID
+            //                              where id == classesbooked.ClassID
+            //                              select new { member.Id })
+            //                                       .Select(x => x.Id).ToList();
+
+            listData.ForEach(x =>
+            {
+                MemberClassViewModel Obj = new MemberClassViewModel();
+                Obj.ClassID = x.ClassID;
+                Obj.ClassName = x.ClassName;
+                Obj.MemberID = x.MemberID;
+
+
+                memberClassViewModel.Add(Obj);
+
+
+            }
+            );
+
+
+            return View(memberClassViewModel);
         }
 
 
@@ -289,8 +332,9 @@ namespace GymTracker.Controllers
 
 
 
-            // GET: Members/Create
-            public IActionResult Create()
+
+        // GET: Members/Create
+        public IActionResult Create()
         {
             return View();
         }
@@ -311,7 +355,7 @@ namespace GymTracker.Controllers
 
                 if (_context.MembershipTypes.Any(x => x.MembershipTypeId.ToString() == member.PaymentType))
                 {
-                    //membershipTypeId = _context.MembershipTypes.First(x => x.PaymentType == member.PaymentType).MembershipTypeId;
+                    
                     membershipTypeId = _context.MembershipTypes.First(x => x.MembershipTypeId.ToString() == member.PaymentType).MembershipTypeId;
                 }
                 var memberEntity = new Member
@@ -367,17 +411,6 @@ namespace GymTracker.Controllers
 
             if (ModelState.IsValid)
             {
-
-                //var memberEntity = new Member
-                //{
-                //    DateOfBirth = member.DateOfBirth,
-                //    FirstName = member.FirstName,
-                //    Id = member.MemberID,
-                //    LastName = member.LastName,
-           
-                //};
-
-
 
 
                 try

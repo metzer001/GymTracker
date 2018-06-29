@@ -31,9 +31,9 @@
                 @Html.DisplayFor(modelItem => item.Cost)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.MembershipTypeId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.MembershipTypeId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.MembershipTypeId">Delete</a>
+                <a asp-action="Edit" class="btn btn-primary btn-lg margin-right" asp-route-id="@item.MembershipTypeId">Edit</a> |
+                <a asp-action="Details" class="btn btn-primary btn-lg margin-right" asp-route-id="@item.MembershipTypeId">Details</a> |
+                <a asp-action="Delete" class="btn btn-primary btn-lg margin-right" asp-route-id="@item.MembershipTypeId">Delete</a>
             </td>
         </tr>
 }
