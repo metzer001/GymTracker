@@ -327,7 +327,34 @@ namespace GymTracker.Controllers
         }
 
 
+        [HttpGet]
+        public async Task<ActionResult> CancelClassConfirmed(int id, int ClassId)  //firstid parameter is memberID
+        {
+            if (_context.Members.Any(x => x.Id == id))  //check if that memberID actually exists, else return 404 not found
+            {
 
+                var memberid = _context.Members.First(x => x.Id == id);
+
+                var classToRemove = _context.ClassesBooked.Where(c => c.Id == ClassId).SingleOrDefault();
+
+                _context.ClassesBooked.Remove(classToRemove);
+                _context.Entry(classToRemove).State = EntityState.Deleted;
+                _context.SaveChanges();
+
+                 
+            }
+
+            else
+            {
+                throw new HttpException(404, "Something has gone wrong");
+
+            }
+
+
+
+            TempData["Message"] = "Your class was successfully cancelled!";
+            return RedirectToAction("Details", new { id = id });
+        }
 
 
 
